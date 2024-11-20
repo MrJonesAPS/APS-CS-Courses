@@ -81,10 +81,10 @@ subgraph Courses only at WLHS
     click N call load_md_course("md/ib_2.md")
     
 end
+M --> H
 B[Programming] --> M
 H --> N
 click B call load_md_course("md/prog.md")
-
 `
 
 /* This fixes an annoying issue
