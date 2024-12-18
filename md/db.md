@@ -1,4 +1,4 @@
-# Database Design 
+# DE Database Design 
 
 ### APS Course Code: 96660W
 ### NOVA Courses: ITE 140 (Fall) / ITD 256 (Spring)

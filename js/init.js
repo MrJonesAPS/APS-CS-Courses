@@ -50,7 +50,7 @@ subgraph Courses only at ACC
         click K call load_md_course("md/de_prog_3.md")
     end
     subgraph S2["NOVA Web Certificate"]
-        I --> L[Database Design & Management<br>ITE140/ITD256]
+        I --> L[DE Database Design & Management<br>ITE140/ITD256]
         click L call load_md_course("md/db.md")
     end
     subgraph S3[Cybersecurity]
