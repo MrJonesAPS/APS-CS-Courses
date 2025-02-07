@@ -62,15 +62,16 @@ sequences.
 
 There are several foundational skills that we teach in our introductory classes. If you take our courses in the sequence suggested, you will be just fine.
 
-If you plan to take courses out of sequence (or to take courses outside or our school over the summer), there are some skills that you will likely not get elsewhere. We'll expect you to study these topics on your own, and won't have time in class to re-teach them. Here is a list of topics you should plan to study on your own:
+If you plan to take courses out of sequence (or to take courses outside or our school over the summer), there are some skills that you will likely not get elsewhere. We'll expect you to study these topics on your own, and won't have time in class to re-teach them. Here is a list of topics that we'll expect all of our students in advanced classes to already know:
 
 - Unix Command line tools: We do almost all of our work on the command line. You should be very comfortable using the command line to create and manipulate files.
 If you are new to the command line, our favorite learning tool is Terminus: [https://www.mprat.org/Terminus/](https://www.mprat.org/Terminus/)
 - Git: We use git very frequently in our classes. You should be comfortable using git from the command line to create and interact with repositories, and should be reasonably comfortable sharing a repo with others, including solving merge issues. If you are new to git, we love this website: [https://learngitbranching.js.org/](https://learngitbranching.js.org/)
 - Vi: Vi is a text editor that is built into the command line. We use vi in class for most of our coding. If you're new to vi, we recommend VimTutor: [https://vimschool.netlify.app/introduction/vimtutor/](https://vimschool.netlify.app/introduction/vimtutor/)
+- Students entering CSC221 should already be comfortable with HTML and CSS. We'll build a lot of interactive web applications in this class - we'll focus on the back-end part of these projects and we won't have much time to review the web design component.
 - Finally, all students entering CSC222 (Object Oriented Programming) are expected to already be very comfortable with programming concepts in any language. This class is based on C++ and we don't expect that you already know C++, just that you are already comfortable with the concepts behind branching, loops, functions, etc.
 
-Feel free to reach out to us with any questions about any of these, or for more study materials. You'll find that we love talking about these tools!
+You don't need to be an absolute pro at any of this - just comfortable enough to navigate most common situations on your own. Feel free to reach out to us with any questions about any of these, or for more study materials. You'll find that we love talking about these tools!
 
 
 ## Why does this site contradict the Program of Studies?
