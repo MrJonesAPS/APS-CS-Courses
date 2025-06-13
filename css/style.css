@@ -27,7 +27,7 @@ header p {
     text-align: center; /* Center the content inside the container */
 }
 
-#toggles, #description {
+#toggles, #description, #graph-info {
     margin: 20px auto;
     padding: 20px;
     width: 80%;

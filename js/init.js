@@ -41,24 +41,24 @@ subgraph Courses only at ACC
     end    
     
     subgraph S1["NOVA CS Associates"]
-        I[DE Computer Programming I<br>CSC221/ITP225]
+        I[DE Computer Programming I<br><span id="csc221">CSC221</span>/<span id="itp225">ITP225</span>]
         click I call load_md_course("md/de_prog_1.md")
-        H --> J[DE Computer Programming II<br>CSC222/CSC208]
+        H --> J[DE Computer Programming II<br><span id="csc222">CSC222</span>/<span id="csc208">CSC208</span>]
         click J call load_md_course("md/de_prog_2.md")
         I --> J
-        J --> K[DE Computer Programming III<br>CSC215/CSC223]
+        J --> K[DE Computer Programming III<br><span id="csc215">CSC215</span>/<span id="csc223">CSC223</span>]
         click K call load_md_course("md/de_prog_3.md")
     end
     subgraph S2["NOVA Web Certificate"]
-        I --> L[DE Database Design & Management<br>ITE140/ITD256]
+        I --> L[DE Database Design & Management<br><span id="ite140">ITE140</span>/<span id="itd256">ITD256</span>]
         click L call load_md_course("md/db.md")
     end
     subgraph S3[Cybersecurity]
-        P[DE Cybersecurity I<br>ITN106/ITN107/ITE152/ITN101]
+        P[DE Cybersecurity I<br><span id="itn106">ITN106</span>/<span id="itn107">ITN107</span>/<span id="ite152">ITE152</span>/<span id="itn101">ITN101</span>]
         click P call load_md_course("md/cyber_1.md")
-        P --> Q[DE Cybersecurity II<br>ITN260/ITN261/ITN262/ITN263]
+        P --> Q[DE Cybersecurity II<br><span id="itn260">ITN260</span>/<span id="itn261">ITN261</span>/<span id="itn262">ITN262</span>/<span id="itn263">ITN263</span>]
         click Q call load_md_course("md/cyber_2.md")
-        Q --> R[DE Cybersecurity III<br>ITN200/ITN266/ITN170]
+        Q --> R[DE Cybersecurity III<br><span id="itn200">ITN200</span>/<span id="itn266">ITN266</span>/<span id="itn170">ITN170</span>]
         click R call load_md_course("md/cyber_3.md")
     end
     subgraph S4["Graphic Design"]
@@ -109,9 +109,11 @@ let graphDefinition = mainGraph;
 const urlParams = new URLSearchParams(window.location.search);
 const school = urlParams.get('school');
 let addedNodes;
+let deDisclaimer = false;
 
 if (school === 'acc') {
     addedNodes = ['acc'];
+    deDisclaimer = true;
     document.getElementById("toggleACC").classList.add("active"); 
 } else if (school === 'ib') {
     addedNodes = ['ib'];
@@ -148,12 +150,121 @@ function renderGraph() {
     if (addedNodes.includes('ib')){
         graphDefinition += ibgraph;
     }
+
+
     
     
     document.getElementById("graph-container").innerHTML = `<div class="mermaid">${graphDefinition}</div>`;
     mermaid.init({
         securityLevel: 'loose',
     });
+
+
+    if (deDisclaimer) {
+        const graphContainer = document.getElementById("graph-container");
+        let infoDiv = document.getElementById("graph-info");
+        if (!infoDiv) {
+            infoDiv = document.createElement("div");
+            infoDiv.id = "graph-info";
+            const infoP = document.createElement("p");
+            infoP.textContent = `Note: NOVA Associates degree programs include other
+        requirements not described here. Consult with your counselor if you plan
+        to pursue one of these pathways.`;
+            infoDiv.appendChild(infoP);
+            graphContainer.parentNode.insertBefore(infoDiv, graphContainer.nextSibling);
+        } else {
+            // Update the text if already exists
+            let infoP = infoDiv.querySelector("p");
+            if (!infoP) {
+                infoP = document.createElement("p");
+                infoDiv.appendChild(infoP);
+            }
+            infoP.textContent = `Note: NOVA Associates degree requirements are complex,
+            and include other requirements not described here. The classes highlighted
+            here are suggestions, and there might be other combinations of classes
+            that fulfill them. Consult with your counselor if you plan
+        to pursue one of these pathways.`;
+        }
+    } else {
+        const infoDiv = document.getElementById("graph-info");
+        if (infoDiv) {
+            infoDiv.parentNode.removeChild(infoDiv);
+        }
+    }
+
+    // Add dropdown for highlighting required courses for NOVA Degree if ACC is selected
+    let highlightContainer = document.getElementById("highlight-container");
+    if (addedNodes.includes('acc')) {
+        if (!highlightContainer) {
+            highlightContainer = document.createElement("div");
+            highlightContainer.id = "highlight-container";
+            highlightContainer.style.marginTop = "1em";
+            highlightContainer.innerHTML = `
+                <label for="nova-degree-select"><strong>Highlight required courses for NOVA Degree:</strong></label>
+                <select id="nova-degree-select" style="margin-left: 0.5em;">
+                    <option value="">-- Select --</option>
+                    <option value="cs">Associates in Computer Science</option>
+                    <option value="cyber">Associates in IT (cybersecurity focus)</option>
+                    <option value="db">Associates in IT (database focus)</option>
+                </select>
+            `;
+            let infoDiv = document.getElementById("graph-info");
+            if (infoDiv) {
+                infoDiv.insertBefore(
+                    highlightContainer,
+                    infoDiv.firstChild
+                );
+            } else {
+                document.getElementById("graph-container").parentNode.insertBefore(
+                    highlightContainer,
+                    document.getElementById("graph-container")
+                );
+            }
+        }
+        // Add event listener for dropdown
+        document.getElementById("nova-degree-select").onchange = function(e) {
+            // Remove previous highlights
+            document.querySelectorAll(".nova-highlight").forEach(el => {
+                el.classList.remove("nova-highlight");
+            });
+            // Highlight based on selection
+            const val = e.target.value;
+            // Map degree to node IDs (these should match the mermaid node IDs)
+            const degreeMap = {
+                //cs is already established. should we include web?
+                cs: ["csc221", "csc222", "csc208","csc223","csc215"],
+
+                //for cyber, they need ite152, 5 electives, and 
+                // a 4 credit programming class. does 
+                // csc221 count (only 3 credits)?
+                cyber: ["ite152", "itn106", "itn107","itn101","itn260","itn261","csc221"], 
+
+                //for database, they need ite152, 5 electives,
+                //and a programming class.
+                //same question about csc221
+                //this is 2 electives. 
+                db: ["ite152", "csc221","ite140","itd256","itn106","itn107","itn101"]
+            };
+            if (degreeMap[val]) {
+                degreeMap[val].forEach(id => {
+                    // Find the span for the node in the rendered SVG
+                    const node = document.getElementById(id);
+                    if (node) node.classList.add("nova-highlight");
+                });
+            }
+        };
+    } else if (highlightContainer) {
+        highlightContainer.parentNode.removeChild(highlightContainer);
+    }
+    // Add highlight style if not present
+    if (!document.getElementById("nova-highlight-style")) {
+        const style = document.createElement("style");
+        style.id = "nova-highlight-style";
+        style.textContent = `.nova-highlight { background-color: #e67e22 !important; }`;
+        document.head.appendChild(style);
+    }
+
+
 }
 
 window.load_md_course = function(file){
@@ -187,9 +298,11 @@ export function init(){
         if (!addedNodes.includes('acc')) {
             addedNodes.push('acc');
             event.target.classList.add('active');
+            deDisclaimer = true;
         } else {
             addedNodes = addedNodes.filter(node => node !== 'acc');
             event.target.classList.remove('active');
+            deDisclaimer = false;
         }
         renderGraph();
     });
