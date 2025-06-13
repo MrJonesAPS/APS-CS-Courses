@@ -167,23 +167,13 @@ function renderGraph() {
             infoDiv = document.createElement("div");
             infoDiv.id = "graph-info";
             const infoP = document.createElement("p");
-            infoP.textContent = `Note: NOVA Associates degree programs include other
-        requirements not described here. Consult with your counselor if you plan
-        to pursue one of these pathways.`;
-            infoDiv.appendChild(infoP);
-            graphContainer.parentNode.insertBefore(infoDiv, graphContainer.nextSibling);
-        } else {
-            // Update the text if already exists
-            let infoP = infoDiv.querySelector("p");
-            if (!infoP) {
-                infoP = document.createElement("p");
-                infoDiv.appendChild(infoP);
-            }
             infoP.textContent = `Note: NOVA Associates degree requirements are complex,
             and include other requirements not described here. The classes highlighted
             here are suggestions, and there might be other combinations of classes
             that fulfill them. Consult with your counselor if you plan
         to pursue one of these pathways.`;
+            infoDiv.appendChild(infoP);
+            graphContainer.parentNode.insertBefore(infoDiv, graphContainer.nextSibling);
         }
     } else {
         const infoDiv = document.getElementById("graph-info");
@@ -256,13 +246,7 @@ function renderGraph() {
     } else if (highlightContainer) {
         highlightContainer.parentNode.removeChild(highlightContainer);
     }
-    // Add highlight style if not present
-    if (!document.getElementById("nova-highlight-style")) {
-        const style = document.createElement("style");
-        style.id = "nova-highlight-style";
-        style.textContent = `.nova-highlight { background-color: #e67e22 !important; }`;
-        document.head.appendChild(style);
-    }
+
 
 
 }

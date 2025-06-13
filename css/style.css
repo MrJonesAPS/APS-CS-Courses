@@ -76,3 +76,8 @@ footer {
     color: #fff;
     bottom: 0;
 }
+
+.nova-highlight { 
+    background-color: #e67d2294 !important; 
+    border-radius: 8px;
+}
